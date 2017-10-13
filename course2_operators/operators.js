@@ -16,11 +16,18 @@ var observer = {
 // Rx.Observable.fromEvent(button, 'click')
 //   .throttleTime(1000)
 //   .map((data) => {return data.clientY})
-Rx.Observable.create(function(obs) {
-  obs.next('A value');
-  setTimeout(function() {
-    obs.complete();
-  }, 2000);
-  obs.next('A second value');
+var subscription = Rx.Observable.create(function(obs) {
+  // obs.next('A value');
+  // setTimeout(function() {
+  //   obs.complete();
+  // }, 2000);
+  // obs.next('A second value');
+  button.onclick = function(event) {
+    obs.next(event);
+  }
 })
   .subscribe(observer)
+
+setTimeout(function() {
+  subscription.unsubscribe();
+}, 5000)
